@@ -7,7 +7,7 @@ import simplejson as json
 
 from collections import defaultdict
 from django.conf import settings
-from treeherder.client import TreeherderJobCollection
+from treeherder.client import TreeherderJobCollection, TreeherderJob
 
 from treeherder.etl import common, buildbot
 from treeherder.etl.mixins import JsonExtractorMixin, OAuthLoaderMixin
@@ -249,11 +249,11 @@ class Builds4hTransformerMixin(object):
 
             # get treeherder job instance and add the job instance
             # to the collection instance
-            th_job = th_collections[project].get_job(treeherder_data)
-            th_collections[project].add(th_job)
+            # th_job = th_collections[project].get_job(treeherder_data)
+            th_collections[project].add(TreeherderJob(treeherder_data))
 
-        if missing_resultsets and not filter_to_revision:
-            common.fetch_missing_resultsets("builds4h", missing_resultsets, logger)
+        # if missing_resultsets and not filter_to_revision:
+        #     common.fetch_missing_resultsets("builds4h", missing_resultsets, logger)
 
         return th_collections
 
@@ -406,8 +406,8 @@ class PendingRunningTransformerMixin(object):
                     th_job = th_collections[project].get_job(treeherder_data)
                     th_collections[project].add(th_job)
 
-        if missing_resultsets and not filter_to_revision:
-            common.fetch_missing_resultsets(source, missing_resultsets, logger)
+        # if missing_resultsets and not filter_to_revision:
+        #     common.fetch_missing_resultsets(source, missing_resultsets, logger)
 
         return th_collections
 

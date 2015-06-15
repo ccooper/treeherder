@@ -48,8 +48,8 @@ def fetch_buildapi_build4h():
     the objectstore ingestion endpoint
     """
     Builds4hJobsProcess().run()
-    logger.warn("<><><> printing diff after")
 
+    logger.warn("<><><> printing diff after")
     for line in tr.format_diff():
         logger.warn("<> {}".format(line))
 
